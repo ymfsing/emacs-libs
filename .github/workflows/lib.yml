@@ -19,9 +19,6 @@ jobs:
         with:
           node-version: 16
 
-      - run: npm ci
-      - run: npm test
-
       - name: Install dependency
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
