@@ -12,20 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        emacs_version:
-          - snapshot
     steps:
-      - uses: purcell/setup-emacs@master
-        with:
-          version: ${{ matrix.emacs_version }}
-
       - uses: actions/checkout@v3
-
-      - name: Print emacs version
-        run: |
-          emacs --version
 
       - name: Install dependency
         run: |
@@ -34,7 +22,7 @@ jobs:
 
       - name: Install plantuml
         run: |
-          wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -o /tmp/mylib/plantuml.jar
+          sudo wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -o /tmp/mylib/plantuml.jar
           
       # - name: Backup packages for lib
       #   run: |
