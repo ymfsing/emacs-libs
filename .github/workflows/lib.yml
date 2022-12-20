@@ -23,7 +23,6 @@ jobs:
       - name: Install dependency
         run: |
           sudo apt update
-          sudo apt install unar
           sudo timedatectl set-timezone "Asia/Shanghai"
           mkdir -p "/tmp/tmp"
           mkdir -p "/tmp/mylib"          
@@ -44,9 +43,8 @@ jobs:
         run: |          
           cd lua-language-server
           TAGNUM=$(git describe --tags `git rev-list --tags --max-count=1`)
-          sudo wget https://github.com/sumneko/lua-language-server/releases/download/$TAGNUM/lua-language-server-$TAGNUM-darwin-x64.tar.gz -o /tmp/tmp/lls.tar.gz
-          unar /tmp/tmp/lls.tar.gz
-          ls -al /tmp/tmp
+          sudo wget https://github.com/sumneko/lua-language-server/releases/download/$TAGNUM/lua-language-server-$TAGNUM-darwin-x64.tar.gz -o /tmp/tmp/lls.tar
+          tar –xvf /tmp/tmp/lls.tar -C /tmp/mylib/lsp/lua
           
       - name: Install npm for lsp
         run: |
