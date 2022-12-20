@@ -1,0 +1,58 @@
+name: Emacs lib publisher
+
+on:
+  push:
+    paths-ignore:
+      - '*.org'
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 1 * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        emacs_version:
+          - snapshot
+    steps:
+      - uses: purcell/setup-emacs@master
+        with:
+          version: ${{ matrix.emacs_version }}
+
+      - uses: actions/checkout@v3
+
+      - name: Print emacs version
+        run: |
+          emacs --version
+
+      - name: Install dependency
+        run: |
+          sudo timedatectl set-timezone "Asia/Shanghai"
+          sudo mkdir /tmp/mylib
+
+      - name: Install plantuml
+        run: |
+          wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -o /tmp/mylib/plantuml.jar
+          
+      # - name: Backup packages for lib
+      #   run: |
+      #     cp -vR ~/.emacs.d/elpa /tmp/mylib
+
+      - name: Commit files for lib
+        run: |
+          cd /tmp/mylib
+          git init
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "$(date '+%y/%m/%d %H:%M:%S')"
+
+      - name: Push for lib
+        uses: ad-m/github-push-action@master
+        with:
+          directory: /tmp/mylib
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: lib
+          force: true

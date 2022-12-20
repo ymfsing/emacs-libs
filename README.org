@@ -1,0 +1,8 @@
+* Usage
+
+** git submodule
+
+#+begin_src shell
+cd ~/.emacs.d
+git submodule add -b lib https://github.com/ymfsing/emacs-lib mylib
+#+end_src
