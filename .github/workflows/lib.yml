@@ -50,14 +50,7 @@ jobs:
       - name: Install npm for lsp
         run: |
           cd /tmp/mylib/lsp/npm
-          npm install bash-language-server
-          # npm install bash-language-server --perfix /tmp/mylib/lsp
-          # npm install pyright --perfix /tmp/mylib/lsp
-          # npm install typescript-language-server --perfix /tmp/mylib/lsp
-          # npm install @volar/vue-language-server --perfix /tmp/mylib/lsp
-          # npm install vscode-langservers-extracted --perfix /tmp/mylib/lsp
-          # npm install dockerfile-language-server-nodejs --perfix /tmp/mylib/lsp
-          # npm install yaml-language-server --perfix /tmp/mylib/lsp
+          npm install bash-language-server pyright typescript-language-server @volar/vue-language-server vscode-langservers-extracted yaml-language-server
 
       - name: Commit files for lib
         run: |
