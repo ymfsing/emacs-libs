@@ -32,7 +32,7 @@ jobs:
 
       - name: Install plantuml
         run: |
-          sudo wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -o /tmp/mylib/plantuml.jar
+          sudo wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O /tmp/mylib/plantuml.jar
 
       - name: Clone repository
         uses: GuillaumeFalourd/clone-github-repo-action@v2
