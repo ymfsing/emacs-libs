@@ -44,7 +44,8 @@ jobs:
           cd lua-language-server
           TAGNUM=$(git describe --tags `git rev-list --tags --max-count=1`)
           sudo wget https://github.com/sumneko/lua-language-server/releases/download/$TAGNUM/lua-language-server-$TAGNUM-darwin-x64.tar.gz -o /tmp/tmp/lls.tar.gz
-          sudo tar -zxvf /tmp/tmp/lls.tar.gz -C /tmp/mylib/lsp/lua
+          sudo tar -zxvf /tmp/tmp/lls.tar.gz
+          ls -al
           
       - name: Install npm for lsp
         run: |
