@@ -23,7 +23,7 @@ jobs:
       - name: Install dependency
         run: |
           sudo apt update
-          sudo apt install gunzip
+          sudo apt install pigz
           sudo timedatectl set-timezone "Asia/Shanghai"
           mkdir -p "/tmp/tmp"
           mkdir -p "/tmp/mylib"          
@@ -45,7 +45,7 @@ jobs:
           cd lua-language-server
           TAGNUM=$(git describe --tags `git rev-list --tags --max-count=1`)
           sudo wget https://github.com/sumneko/lua-language-server/releases/download/$TAGNUM/lua-language-server-$TAGNUM-darwin-x64.tar.gz -o /tmp/tmp/lls.tar.gz
-          gunzip /tmp/tmp/lls.tar.gz -c /tmp/mylib/lsp/lua
+          unpigz /tmp/tmp/lls.tar.gz
           
       - name: Install npm for lsp
         run: |
