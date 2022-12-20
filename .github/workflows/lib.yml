@@ -18,16 +18,34 @@ jobs:
       - name: Install dependency
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
-          mkdir -p "/tmp/mylib"
+          mkdir -p "/tmp/tmp"
+          mkdir -p "/tmp/mylib"          
+          mkdir -p "/tmp/mylib/lsp"
+          mkdir -p "/tmp/mylib/lsp/lua"
 
       - name: Install plantuml
         run: |
           sudo wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -o /tmp/mylib/plantuml.jar
-          
-      # - name: Backup packages for lib
-      #   run: |
-      #     cp -vR ~/.emacs.d/elpa /tmp/mylib
 
+      - name: Install npm for lsp
+        run: |
+          npm install bash-language-server --perfix /tmp/mylib/lsp
+          npm install pyright --perfix /tmp/mylib/lsp
+          npm install typescript-language-server --perfix /tmp/mylib/lsp
+          npm install @volar/vue-language-server --perfix /tmp/mylib/lsp
+          npm install vscode-langservers-extracted --perfix /tmp/mylib/lsp
+          npm install dockerfile-language-server-nodejs --perfix /tmp/mylib/lsp
+          npm install yaml-language-server --perfix /tmp/mylib/lsp
+
+      - name: Install lua lsp
+        run: |
+          cd /tmp/tmp
+          git clone https://github.com/sumneko/lua-language-server
+          cd lua-language-server
+          echo "TAG_NAME=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+          sudo wget https://github.com/sumneko/lua-language-server/releases/download/${{ env.TAR_NAME }}/lua-language-server-${{ env.TAR_NAME }}-darwin-x64.tar.gz -o /tmp/tmp/lls.tar.gz
+          tar -zxvf /tmp/tmp/lls.tar.gz -C /tmp/mylib/lsp/lua
+          
       - name: Commit files for lib
         run: |
           cd /tmp/mylib
