@@ -21,6 +21,7 @@ jobs:
           sudo apt update
           sudo apt install nodejs
           sudo apt install npm
+          npm --version
           mkdir -p "/tmp/tmp"
           mkdir -p "/tmp/mylib"          
           mkdir -p "/tmp/mylib/lsp"
@@ -33,12 +34,12 @@ jobs:
       - name: Install npm for lsp
         run: |
           npm install bash-language-server --perfix /tmp/mylib/lsp
-          npm install pyright --perfix /tmp/mylib/lsp
-          npm install typescript-language-server --perfix /tmp/mylib/lsp
-          npm install @volar/vue-language-server --perfix /tmp/mylib/lsp
-          npm install vscode-langservers-extracted --perfix /tmp/mylib/lsp
-          npm install dockerfile-language-server-nodejs --perfix /tmp/mylib/lsp
-          npm install yaml-language-server --perfix /tmp/mylib/lsp
+          # npm install pyright --perfix /tmp/mylib/lsp
+          # npm install typescript-language-server --perfix /tmp/mylib/lsp
+          # npm install @volar/vue-language-server --perfix /tmp/mylib/lsp
+          # npm install vscode-langservers-extracted --perfix /tmp/mylib/lsp
+          # npm install dockerfile-language-server-nodejs --perfix /tmp/mylib/lsp
+          # npm install yaml-language-server --perfix /tmp/mylib/lsp
 
       - name: Install lua lsp
         run: |
