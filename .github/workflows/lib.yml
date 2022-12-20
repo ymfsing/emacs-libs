@@ -48,11 +48,11 @@ jobs:
       - name: Install lua lsp
         run: |
           cd /tmp/tmp
-          git clone https://github.com/sumneko/lua-language-server
+          sudo git clone https://github.com/sumneko/lua-language-server
           cd lua-language-server
           echo "TAG_NAME=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
           sudo wget https://github.com/sumneko/lua-language-server/releases/download/${{ env.TAR_NAME }}/lua-language-server-${{ env.TAR_NAME }}-darwin-x64.tar.gz -o /tmp/tmp/lls.tar.gz
-          tar -zxvf /tmp/tmp/lls.tar.gz -C /tmp/mylib/lsp/lua
+          sudo tar -zxvf /tmp/tmp/lls.tar.gz -C /tmp/mylib/lsp/lua
           
       - name: Commit files for lib
         run: |
