@@ -29,13 +29,13 @@ jobs:
 
       - name: Install npm for lsp
         run: |
-          npm install bash-language-server --perfix /tmp/mylib/lsp
-          npm install pyright --perfix /tmp/mylib/lsp
-          npm install typescript-language-server --perfix /tmp/mylib/lsp
-          npm install @volar/vue-language-server --perfix /tmp/mylib/lsp
-          npm install vscode-langservers-extracted --perfix /tmp/mylib/lsp
-          npm install dockerfile-language-server-nodejs --perfix /tmp/mylib/lsp
-          npm install yaml-language-server --perfix /tmp/mylib/lsp
+          sudo npm install bash-language-server --perfix /tmp/mylib/lsp
+          sudo npm install pyright --perfix /tmp/mylib/lsp
+          sudo npm install typescript-language-server --perfix /tmp/mylib/lsp
+          sudo npm install @volar/vue-language-server --perfix /tmp/mylib/lsp
+          sudo npm install vscode-langservers-extracted --perfix /tmp/mylib/lsp
+          sudo npm install dockerfile-language-server-nodejs --perfix /tmp/mylib/lsp
+          sudo npm install yaml-language-server --perfix /tmp/mylib/lsp
 
       - name: Install lua lsp
         run: |
@@ -44,7 +44,7 @@ jobs:
           cd lua-language-server
           echo "TAG_NAME=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
           sudo wget https://github.com/sumneko/lua-language-server/releases/download/${{ env.TAR_NAME }}/lua-language-server-${{ env.TAR_NAME }}-darwin-x64.tar.gz -o /tmp/tmp/lls.tar.gz
-          tar -zxvf /tmp/tmp/lls.tar.gz -C /tmp/mylib/lsp/lua
+          sudo tar -zxvf /tmp/tmp/lls.tar.gz -C /tmp/mylib/lsp/lua
           
       - name: Commit files for lib
         run: |
