@@ -68,7 +68,7 @@ jobs:
         run: |
           cd tree-sitter-module
           ./batch.sh
-          cp -vR dist /tmp/mylib/tree-sitter
+          cp -r dist/* /tmp/mylib/tree-sitter/
           
       - name: Commit files for lib
         run: |
