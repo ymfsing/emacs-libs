@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-11
     steps:
       - uses: actions/checkout@v3
 
@@ -22,19 +22,21 @@ jobs:
 
       - name: Install dependency
         run: |
-          sudo apt update
-          sudo apt install pigz
-          sudo timedatectl set-timezone "Asia/Shanghai"
           mkdir -p "/tmp/tmp"
-          mkdir -p "/tmp/mylib"          
+          mkdir -p "/tmp/mylib/plantuml"          
           mkdir -p "/tmp/mylib/lsp/npm"
           mkdir -p "/tmp/mylib/lsp/lua"
+          mkdir -p "/tmp/mylib/tree-sitter"          
 
       - name: Install plantuml
         run: |
-          sudo wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O /tmp/mylib/plantuml.jar
+          sudo wget https://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O /tmp/mylib/plantuml/plantuml.jar
 
-      - name: Clone repository
+      - name: Cd tmp directory
+        run: |
+          cd /tmp/tmp
+
+      - name: Clone repository lua-language-server
         uses: GuillaumeFalourd/clone-github-repo-action@v2
         with:
           owner: 'sumneko'
@@ -46,12 +48,28 @@ jobs:
           TAGNUM=$(git describe --tags `git rev-list --tags --max-count=1`)
           sudo wget https://github.com/sumneko/lua-language-server/releases/download/$TAGNUM/lua-language-server-$TAGNUM-darwin-x64.tar.gz
           tar xzf lua-language-server-$TAGNUM-darwin-x64.tar.gz -C /tmp/mylib/lsp/lua
-          
+
       - name: Install npm for lsp
         run: |
           cd /tmp/mylib/lsp/npm
           npm install bash-language-server pyright typescript-language-server @volar/vue-language-server vscode-langservers-extracted yaml-language-server
 
+      - name: Cd tmp directory
+        run: |
+          cd /tmp/tmp
+
+      - name: Clone repository tree-sitter
+        uses: GuillaumeFalourd/clone-github-repo-action@v2
+        with:
+          owner: 'casouri'
+          repository: 'tree-sitter-module'
+
+      - name: Build tree-sitter
+        run: |
+          cd tree-sitter-module
+          ./batch.sh
+          cp -vR dist /tmp/mylib/tree-sitter
+          
       - name: Commit files for lib
         run: |
           cd /tmp/mylib
