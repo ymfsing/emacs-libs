@@ -15,12 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-      - run: npm ci
-      - run: npm test
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      #     cache: 'npm'
+      #     persist-credentials: false
+      # - run: npm ci
+      # - run: npm test
 
       - name: Install dependency
         run: |
